@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    {"id": "greetings", "name": "Basic Greetings"},
+    {"id": "pronouns", "name": "Subject Pronouns"},
+    {"id": "verb_ser", "name": "Verb: Ser (to be)"},
+    {"id": "articles", "name": "Definite Articles"},
+    {"id": "noun_gender", "name": "Noun Gender"}
+  ],
+  "edges": [
+    {"source": "greetings", "target": "pronouns"},
+    {"source": "pronouns", "target": "verb_ser"},
+    {"source": "verb_ser", "target": "articles"},
+    {"source": "articles", "target": "noun_gender"}
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "concept_id",
+  "name": "Concept Name",
+  "description": "Brief description of the concept",
+  "explanation": "How to explain this concept using Language Transfer method",
+  "cognates": ["List of cognates or transfer patterns from English"],
+  "examples": [
+    {
+      "source": "English phrase",
+      "target": "Target language phrase",
+      "literal": "Literal translation (optional)"
+    }
+  ],
+  "exercises": [
+    {
+      "type": "translate",
+      "prompt": "How would you say: 'Hello, how are you?'",
+      "expected": ["Hola, como estas", "Hola como estas"],
+      "hints": ["Remember the greeting we learned", "Think about the question word"]
+    }
+  ],
+  "expected_patterns": [
+    "hola",
+    "como estas",
+    "buenos dias"
+  ],
+  "common_errors": [
+    {
+      "error": "como esta",
+      "correction": "como estas",
+      "explanation": "Remember to use the informal 'tu' form"
+    }
+  ],
+  "tags": ["beginner", "greetings"],
+  "estimated_time_minutes": 5
+}
