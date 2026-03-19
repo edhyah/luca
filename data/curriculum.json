@@ -1,0 +1,721 @@
+{
+  "version": "1.0.0",
+  "description": "Language Transfer Spanish curriculum - Episodes 2-3 (MVP subset)",
+  "episodes": [2, 3],
+  "concepts": [
+    {
+      "concept_id": "cognate_al",
+      "name": "Latin Cognates: -al suffix",
+      "episode": 2,
+      "prerequisites": [],
+      "scaffold_steps": [
+        {
+          "step_id": "cognate_al_01",
+          "tutor_prompt": "English has a huge amount of Latin vocabulary. One rule is that words ending in -al tend to come from Latin, so we can make them Spanish. For example, how do you think you say 'normal' in Spanish?",
+          "expected_answers": ["normal"],
+          "answer_notes": "The spelling is identical. Accept any reasonable attempt at Spanish pronunciation.",
+          "difficulty": 1,
+          "hints": [],
+          "revelation": null
+        },
+        {
+          "step_id": "cognate_al_02",
+          "tutor_prompt": "And how about 'legal'?",
+          "expected_answers": ["legal"],
+          "answer_notes": "Identical spelling. Listen for attempt at Spanish pronunciation (leh-GAHL).",
+          "difficulty": 1,
+          "hints": [],
+          "revelation": null
+        },
+        {
+          "step_id": "cognate_al_03",
+          "tutor_prompt": "And 'natural'?",
+          "expected_answers": ["natural"],
+          "answer_notes": "Pronounced nah-too-RAHL. The 'u' should be 'oo' not 'chu'.",
+          "difficulty": 1,
+          "hints": [],
+          "revelation": {
+            "pattern_name": "suffix_al_conversion",
+            "first_encounter_script": "Exactly. Words ending in -al are often identical in Spanish. This rule alone gives you hundreds of words immediately — natural, legal, normal, central, federal, universal...",
+            "review_reference": "Remember the rule for words ending in -al?"
+          }
+        },
+        {
+          "step_id": "cognate_al_04",
+          "tutor_prompt": "Now, what do you notice different between the English 'normal' and the Spanish 'normal'? Where does the stress fall?",
+          "expected_answers": ["the accent", "the stress", "the sound is at the end", "the end", "the last syllable", "nor-MAL"],
+          "answer_notes": "Looking for the observation that English stresses the first syllable (NOR-mal) but Spanish stresses the final syllable (nor-MAL).",
+          "difficulty": 2,
+          "hints": [
+            "Say both versions... where is the emphasis different?",
+            "In English we say NOR-mal... but in Spanish?"
+          ],
+          "revelation": {
+            "pattern_name": "stress_final_consonant",
+            "first_encounter_script": "In English, we stress the beginning: NOR-mal. In Spanish, when a word ends in a consonant like L, we stress the last syllable: nor-MAL. This applies to all these -al words.",
+            "review_reference": "Where do we put the stress on words ending in a consonant?"
+          }
+        }
+      ],
+      "common_errors": [
+        {
+          "error_type": "english_stress_pattern",
+          "example": "NOR-mal instead of nor-MAL",
+          "explanation": "Student carries over English tonic accent to the first syllable.",
+          "tutor_correction_approach": "Contrast the two: 'In English we say NOR-mal, but in Spanish we push the stress to the end... nor-MAL.'"
+        },
+        {
+          "error_type": "english_t_in_natural",
+          "example": "NA-chu-ral instead of nah-too-RAHL",
+          "explanation": "Student uses English 'ch' sound for the 't' before 'u'.",
+          "tutor_correction_approach": "Point to the spelling: 'Look at the letters — there's no C there. Just T-U. Too. Nah-too-RAHL.'"
+        }
+      ],
+      "bkt_parameters": {
+        "p_init": 0.0,
+        "p_learn": 0.35,
+        "p_guess": 0.2,
+        "p_slip": 0.1,
+        "p_forget": 0.03
+      }
+    },
+    {
+      "concept_id": "verb_es",
+      "name": "The verb 'is' (es)",
+      "episode": 2,
+      "prerequisites": ["cognate_al"],
+      "scaffold_steps": [
+        {
+          "step_id": "verb_es_01",
+          "tutor_prompt": "The word for 'is' in Spanish is 'es'. It means 'it is', 'he is', 'she is'. How would you say 'it is normal'?",
+          "expected_answers": ["es normal"],
+          "answer_notes": "Spanish typically omits the subject pronoun. Accept 'es normal' or 'eso es normal'.",
+          "difficulty": 2,
+          "hints": [
+            "Start with the word for 'is'...",
+            "It's just two words: 'is' + 'normal'..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "verb_es_02",
+          "tutor_prompt": "How would you say 'it is legal'?",
+          "expected_answers": ["es legal"],
+          "answer_notes": "Pronounced ehs leh-GAHL. Listen for stress on final syllable of 'legal'.",
+          "difficulty": 2,
+          "hints": [
+            "Same pattern...",
+            "'Is' + 'legal'..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "verb_es_03",
+          "tutor_prompt": "And 'it is natural'?",
+          "expected_answers": ["es natural"],
+          "answer_notes": "Pronounced ehs nah-too-RAHL.",
+          "difficulty": 2,
+          "hints": [
+            "You know both words...",
+            "'Is' + 'natural'..."
+          ],
+          "revelation": {
+            "pattern_name": "simple_sentences_es",
+            "first_encounter_script": "You're building sentences now. In Spanish, you often don't need a word for 'it' — you just start with the verb. 'Es normal' covers 'it is normal', 'he is normal', 'she is normal'.",
+            "review_reference": "How do we say 'it is' something?"
+          }
+        }
+      ],
+      "common_errors": [
+        {
+          "error_type": "s_vs_z_sound",
+          "example": "'ez' (rhyming with 'says') instead of 'ess'",
+          "explanation": "English speakers often voice the 's' to a 'z' sound.",
+          "tutor_correction_approach": "Remind the student: 'Keep it a crisp S sound, not a Z. Essss.'"
+        },
+        {
+          "error_type": "adding_it",
+          "example": "it es normal",
+          "explanation": "Student tries to translate 'it' explicitly.",
+          "tutor_correction_approach": "Explain: 'Spanish doesn't need a separate word for 'it' here — the verb 'es' already implies it.'"
+        }
+      ],
+      "bkt_parameters": {
+        "p_init": 0.0,
+        "p_learn": 0.3,
+        "p_guess": 0.1,
+        "p_slip": 0.1,
+        "p_forget": 0.05
+      }
+    },
+    {
+      "concept_id": "negation_no",
+      "name": "Negation with 'no'",
+      "episode": 2,
+      "prerequisites": ["verb_es"],
+      "scaffold_steps": [
+        {
+          "step_id": "negation_no_01",
+          "tutor_prompt": "To make something negative in Spanish, we use 'no' and put it before the verb. So how would you say 'it is not normal'?",
+          "expected_answers": ["no es normal"],
+          "answer_notes": "Must have 'no' before 'es'.",
+          "difficulty": 2,
+          "hints": [
+            "Put the 'no' first, then the verb...",
+            "No + is + normal..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "negation_no_02",
+          "tutor_prompt": "How would you say 'it is not legal'?",
+          "expected_answers": ["no es legal"],
+          "answer_notes": "Same pattern: no + es + adjective.",
+          "difficulty": 2,
+          "hints": [
+            "Same structure...",
+            "No + es + legal..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "negation_no_03",
+          "tutor_prompt": "And 'it is not natural'?",
+          "expected_answers": ["no es natural"],
+          "answer_notes": "Pronounced noh ehs nah-too-RAHL.",
+          "difficulty": 2,
+          "hints": [
+            "Same pattern again...",
+            "No + es + natural..."
+          ],
+          "revelation": {
+            "pattern_name": "negation_placement",
+            "first_encounter_script": "To negate in Spanish, you simply put 'no' before the verb. Much simpler than English where we need 'do not' or 'is not' or 'don't'. Just 'no' before the verb.",
+            "review_reference": "Where do we put 'no' to make a sentence negative?"
+          }
+        },
+        {
+          "step_id": "negation_no_04",
+          "tutor_prompt": "Now let's combine what we know. How would you say 'it is not normal, it is natural'?",
+          "expected_answers": [
+            "no es normal, es natural",
+            "no es normal es natural"
+          ],
+          "answer_notes": "Accept with or without comma/pause. This combines negation with affirmative.",
+          "difficulty": 3,
+          "hints": [
+            "Two parts: first the negative, then the positive...",
+            "'It is not normal' + 'it is natural'...",
+            "No es normal... then es natural."
+          ],
+          "revelation": null
+        }
+      ],
+      "common_errors": [
+        {
+          "error_type": "english_word_order",
+          "example": "es no normal",
+          "explanation": "Placing the negative after the verb as in some English constructions.",
+          "tutor_correction_approach": "Correct the order: 'In Spanish, the 'no' always jumps in front of the verb. No es normal.'"
+        },
+        {
+          "error_type": "double_negative_confusion",
+          "example": "no es no normal",
+          "explanation": "Student doubles up on negation.",
+          "tutor_correction_approach": "Simplify: 'Just one 'no' before the verb is all we need.'"
+        }
+      ],
+      "bkt_parameters": {
+        "p_init": 0.0,
+        "p_learn": 0.3,
+        "p_guess": 0.1,
+        "p_slip": 0.1,
+        "p_forget": 0.05
+      }
+    },
+    {
+      "concept_id": "phonetic_vowels",
+      "name": "Spanish Vowel Purity",
+      "episode": 2,
+      "prerequisites": [],
+      "scaffold_steps": [
+        {
+          "step_id": "phonetic_vowels_01",
+          "tutor_prompt": "Spanish is a phonetic language — every letter makes the same sound every time. Think about the word 'natural'. In English, we say 'NA-chu-ral'. But in Spanish, there's no 'ch' sound because there's no C in the word. How would you say 'natural' pronouncing each letter exactly as written?",
+          "expected_answers": ["natural"],
+          "answer_notes": "Must be nah-too-RAHL. The 'u' is 'oo' and 't' is a hard 't', not 'ch'. Stress on final syllable.",
+          "difficulty": 3,
+          "hints": [
+            "Don't say 'chu', say 'tu'...",
+            "Pronounce the 'u' like in 'flute'...",
+            "Nah-too-RAHL."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "phonetic_vowels_02",
+          "tutor_prompt": "Think of the word 'annual'. In English we say 'AN-yoo-ul'. But look at the spelling. How would you say it in Spanish, pronouncing exactly what you see?",
+          "expected_answers": ["anual"],
+          "answer_notes": "Pronounced ah-noo-AHL. No 'y' sound — just a-n-u-a-l.",
+          "difficulty": 3,
+          "hints": [
+            "Is there a 'y' in the spelling?",
+            "Just pronounce A-N-U-A-L...",
+            "Ah-noo-AHL."
+          ],
+          "revelation": {
+            "pattern_name": "pure_phonetics",
+            "first_encounter_script": "Spanish is phonetic. Every letter represents the same sound every time. We don't have phantom sounds like the 'y' in 'annual' or the 'ch' in 'natural' — those letters aren't there, so we don't say them. You just read exactly what you see.",
+            "review_reference": "How do we pronounce Spanish words?"
+          }
+        },
+        {
+          "step_id": "phonetic_vowels_03",
+          "tutor_prompt": "The five Spanish vowels are always pronounced the same: A as in 'father', E as in 'bet', I as 'ee', O as in 'no', U as 'oo'. Try saying 'visual' with those pure vowel sounds.",
+          "expected_answers": ["visual"],
+          "answer_notes": "Pronounced bee-soo-AHL. The 'i' is 'ee', the 'u' is 'oo'.",
+          "difficulty": 3,
+          "hints": [
+            "The 'i' is always 'ee'...",
+            "The 'u' is always 'oo'...",
+            "Bee-soo-AHL."
+          ],
+          "revelation": null
+        }
+      ],
+      "common_errors": [
+        {
+          "error_type": "phantom_y_sound",
+          "example": "ANN-yoo-al instead of ah-noo-AHL",
+          "explanation": "Inserting an English 'y' sound before 'u'.",
+          "tutor_correction_approach": "Point to spelling: 'Is there a Y in the word? No. So just say the letters you see: A-N-U-A-L.'"
+        },
+        {
+          "error_type": "english_chu_sound",
+          "example": "NA-chu-ral instead of nah-too-RAHL",
+          "explanation": "Using English 't+u' = 'chu' sound.",
+          "tutor_correction_approach": "Separate the sounds: 'T and U stay separate in Spanish. Too, not chu.'"
+        },
+        {
+          "error_type": "schwa_insertion",
+          "example": "Using 'uh' sounds for unstressed vowels",
+          "explanation": "English reduces unstressed vowels to 'uh'. Spanish doesn't.",
+          "tutor_correction_approach": "Emphasize: 'Every vowel keeps its full sound in Spanish, even when it's not stressed.'"
+        }
+      ],
+      "bkt_parameters": {
+        "p_init": 0.0,
+        "p_learn": 0.25,
+        "p_guess": 0.1,
+        "p_slip": 0.15,
+        "p_forget": 0.05
+      }
+    },
+    {
+      "concept_id": "cognate_ant_ent",
+      "name": "Latin Cognates: -ant/-ent to -ante/-ente",
+      "episode": 3,
+      "prerequisites": ["cognate_al", "phonetic_vowels"],
+      "scaffold_steps": [
+        {
+          "step_id": "cognate_ant_ent_01",
+          "tutor_prompt": "Another rule for convertible words: words ending in -ant or -ent — we just add an 'e' on the end. So, 'important' becomes...?",
+          "expected_answers": ["importante"],
+          "answer_notes": "Stress falls on the 'tan': im-por-TAN-te.",
+          "difficulty": 2,
+          "hints": [
+            "Just add an 'e' to the end...",
+            "Important... plus 'e'..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "cognate_ant_ent_02",
+          "tutor_prompt": "How would you say 'different'?",
+          "expected_answers": ["diferente"],
+          "answer_notes": "Pronounced dee-feh-REN-te. Note single 'f' in Spanish.",
+          "difficulty": 2,
+          "hints": [
+            "Add that 'e' at the end...",
+            "Different... plus 'e'..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "cognate_ant_ent_03",
+          "tutor_prompt": "And 'constant'?",
+          "expected_answers": ["constante"],
+          "answer_notes": "Pronounced con-STAN-te.",
+          "difficulty": 2,
+          "hints": [
+            "Same pattern...",
+            "Constant plus 'e'..."
+          ],
+          "revelation": {
+            "pattern_name": "suffix_ant_ent_conversion",
+            "first_encounter_script": "For words ending in -ant or -ent, just add an 'e'. Important becomes importante, different becomes diferente, constant becomes constante. Notice the stress lands on the second-to-last syllable.",
+            "review_reference": "How do we convert English words ending in -ant or -ent?"
+          }
+        },
+        {
+          "step_id": "cognate_ant_ent_04",
+          "tutor_prompt": "Now use what you know. How would you say 'it is important'?",
+          "expected_answers": ["es importante"],
+          "answer_notes": "Combining verb_es with the new cognate pattern.",
+          "difficulty": 2,
+          "hints": [
+            "You know 'it is'...",
+            "Es + importante..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "cognate_ant_ent_05",
+          "tutor_prompt": "And 'it is not important'?",
+          "expected_answers": ["no es importante"],
+          "answer_notes": "Combining negation with the new cognate.",
+          "difficulty": 2,
+          "hints": [
+            "Remember where 'no' goes...",
+            "No + es + importante..."
+          ],
+          "revelation": null
+        }
+      ],
+      "common_errors": [
+        {
+          "error_type": "missing_final_e",
+          "example": "important instead of importante",
+          "explanation": "Student uses the English word without the required Spanish 'e' ending.",
+          "tutor_correction_approach": "Prompt: 'We need that little 'e' at the end to make it Spanish... importante.'"
+        },
+        {
+          "error_type": "wrong_stress",
+          "example": "im-por-tan-TE instead of im-por-TAN-te",
+          "explanation": "Stressing the final syllable instead of second-to-last.",
+          "tutor_correction_approach": "Demonstrate: 'The stress is on -TAN-: im-por-TAN-te.'"
+        }
+      ],
+      "bkt_parameters": {
+        "p_init": 0.0,
+        "p_learn": 0.3,
+        "p_guess": 0.15,
+        "p_slip": 0.1,
+        "p_forget": 0.05
+      }
+    },
+    {
+      "concept_id": "suffix_mente",
+      "name": "Adverbs: -ly to -mente",
+      "episode": 3,
+      "prerequisites": ["cognate_al", "cognate_ant_ent"],
+      "scaffold_steps": [
+        {
+          "step_id": "suffix_mente_01",
+          "tutor_prompt": "The English ending -ly, like in 'constantly', becomes -mente in Spanish. You attach it to the adjective. So how would you say 'constantly'?",
+          "expected_answers": ["constantemente"],
+          "answer_notes": "Constante + mente. Pronounced con-stan-te-MEN-te.",
+          "difficulty": 2,
+          "hints": [
+            "Start with 'constante' and add 'mente'...",
+            "Constante... plus mente..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "suffix_mente_02",
+          "tutor_prompt": "How would you say 'normally'?",
+          "expected_answers": ["normalmente"],
+          "answer_notes": "Normal + mente. Pronounced nor-mal-MEN-te.",
+          "difficulty": 2,
+          "hints": [
+            "Take 'normal' and add 'mente'...",
+            "Normal... mente..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "suffix_mente_03",
+          "tutor_prompt": "And 'legally'?",
+          "expected_answers": ["legalmente"],
+          "answer_notes": "Legal + mente. Pronounced le-gal-MEN-te.",
+          "difficulty": 2,
+          "hints": [
+            "Legal plus the suffix for '-ly'...",
+            "Legal... mente..."
+          ],
+          "revelation": {
+            "pattern_name": "suffix_mente_conversion",
+            "first_encounter_script": "The English '-ly' is almost always '-mente' in Spanish. Constantly is constantemente, normally is normalmente, legally is legalmente. You're just attaching -mente to the adjective.",
+            "review_reference": "What does the English '-ly' become in Spanish?"
+          }
+        },
+        {
+          "step_id": "suffix_mente_04",
+          "tutor_prompt": "How about 'differently'?",
+          "expected_answers": ["diferentemente"],
+          "answer_notes": "Diferente + mente.",
+          "difficulty": 2,
+          "hints": [
+            "What's 'different' in Spanish?",
+            "Diferente... plus mente..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "suffix_mente_05",
+          "tutor_prompt": "Now let's build a sentence. How would you say 'it is not normally legal'?",
+          "expected_answers": [
+            "no es normalmente legal",
+            "normalmente no es legal"
+          ],
+          "answer_notes": "Either word order is acceptable. The adverb can come before or after the verb.",
+          "difficulty": 3,
+          "hints": [
+            "Combine: no + es + normally + legal...",
+            "No es... normalmente... legal...",
+            "No es normalmente legal."
+          ],
+          "revelation": null
+        }
+      ],
+      "common_errors": [
+        {
+          "error_type": "wrong_stress",
+          "example": "constanteMENTE (equal stress) instead of con-stan-te-MEN-te",
+          "explanation": "Student doesn't maintain the adjective's stress when adding -mente.",
+          "tutor_correction_approach": "Explain: 'The word actually has two stress points — the adjective keeps its stress and -mente has its own. ConSTANte-MENte.'"
+        },
+        {
+          "error_type": "dropping_e_from_ente",
+          "example": "diferentmente instead of diferentemente",
+          "explanation": "Dropping the 'e' from -ente adjectives before adding -mente.",
+          "tutor_correction_approach": "Correct: 'Keep the full adjective: diferente + mente = diferentemente.'"
+        },
+        {
+          "error_type": "using_ly",
+          "example": "constantely or legaly",
+          "explanation": "Mixing English -ly with Spanish root.",
+          "tutor_correction_approach": "Redirect: 'In Spanish we use -mente, not -ly. Constantemente.'"
+        }
+      ],
+      "bkt_parameters": {
+        "p_init": 0.0,
+        "p_learn": 0.3,
+        "p_guess": 0.1,
+        "p_slip": 0.1,
+        "p_forget": 0.05
+      }
+    },
+    {
+      "concept_id": "phonetic_j_sound",
+      "name": "The Spanish 'J' Sound (Jota)",
+      "episode": 3,
+      "prerequisites": ["phonetic_vowels"],
+      "scaffold_steps": [
+        {
+          "step_id": "phonetic_j_sound_01",
+          "tutor_prompt": "In Spanish, when you see a 'J' or a 'G' before 'e' or 'i', it makes a raspy 'H' sound — like you're gently clearing your throat. Think of 'Argentina' as 'Ar-hen-tina'. How would you say 'general'?",
+          "expected_answers": ["general"],
+          "answer_notes": "Pronounced heh-neh-RAHL. Must have the fricative 'h' sound for the G, and stress on final syllable.",
+          "difficulty": 3,
+          "hints": [
+            "The 'G' sounds like a breathy 'H'...",
+            "Think of clearing your throat gently...",
+            "Heh-neh-RAHL."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "phonetic_j_sound_02",
+          "tutor_prompt": "How would you say 'original'?",
+          "expected_answers": ["original"],
+          "answer_notes": "Pronounced oh-ree-hee-NAHL. The 'gi' becomes 'hee'.",
+          "difficulty": 3,
+          "hints": [
+            "The 'gi' in the middle becomes 'hee'...",
+            "Oh-ree-hee...",
+            "Oh-ree-hee-NAHL."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "phonetic_j_sound_03",
+          "tutor_prompt": "And 'urgent'? Remember to add the 'e' at the end.",
+          "expected_answers": ["urgente"],
+          "answer_notes": "Pronounced oor-HEN-te. Combines the -ent→-ente rule with the jota sound.",
+          "difficulty": 3,
+          "hints": [
+            "Urgent plus 'e'...",
+            "The 'g' before 'e' is that breathy sound...",
+            "Oor-HEN-te."
+          ],
+          "revelation": {
+            "pattern_name": "jota_sound_shift",
+            "first_encounter_script": "Whenever you see J, or G before E or I, it's that soft friction sound in the throat. General, original, urgent, Argentina... that English 'J' sound doesn't exist in Spanish.",
+            "review_reference": "How do we pronounce G before E or I, or the letter J?"
+          }
+        },
+        {
+          "step_id": "phonetic_j_sound_04",
+          "tutor_prompt": "How would you say 'it is urgent'?",
+          "expected_answers": ["es urgente"],
+          "answer_notes": "Combining verb_es with the new vocabulary.",
+          "difficulty": 2,
+          "hints": [
+            "You know 'it is'...",
+            "Es + urgente..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "phonetic_j_sound_05",
+          "tutor_prompt": "And 'it is not original'?",
+          "expected_answers": ["no es original"],
+          "answer_notes": "Combining negation with the jota sound word.",
+          "difficulty": 2,
+          "hints": [
+            "Remember where 'no' goes...",
+            "No es + original..."
+          ],
+          "revelation": null
+        }
+      ],
+      "common_errors": [
+        {
+          "error_type": "english_soft_g",
+          "example": "JEN-er-al (with English 'dzh' sound)",
+          "explanation": "Student uses the English 'J' sound instead of the Spanish fricative.",
+          "tutor_correction_approach": "Demonstrate: 'Soften it to just friction in the throat... heh-neh-RAHL. Like a very gentle throat-clearing.'"
+        },
+        {
+          "error_type": "hard_g",
+          "example": "GEN-er-al (with hard G as in 'go')",
+          "explanation": "Student uses a hard G instead of the fricative.",
+          "tutor_correction_approach": "Clarify: 'Before E or I, the G is soft — that breathy H sound. Heh, not Geh.'"
+        }
+      ],
+      "bkt_parameters": {
+        "p_init": 0.0,
+        "p_learn": 0.25,
+        "p_guess": 0.1,
+        "p_slip": 0.15,
+        "p_forget": 0.05
+      }
+    },
+    {
+      "concept_id": "cognate_ible_able",
+      "name": "Latin Cognates: -ible/-able",
+      "episode": 3,
+      "prerequisites": ["phonetic_vowels", "cognate_al"],
+      "scaffold_steps": [
+        {
+          "step_id": "cognate_ible_able_01",
+          "tutor_prompt": "Words ending in -ible or -able are also often the same in Spanish. We just pronounce them syllable by syllable. How would you say 'possible'?",
+          "expected_answers": ["posible"],
+          "answer_notes": "Pronounced po-SEE-bleh. Note: Spanish uses single 's'. Stress on second-to-last syllable.",
+          "difficulty": 2,
+          "hints": [
+            "Say it syllable by syllable...",
+            "Po-si-ble...",
+            "Stress the 'si': po-SI-ble."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "cognate_ible_able_02",
+          "tutor_prompt": "And 'flexible'?",
+          "expected_answers": ["flexible"],
+          "answer_notes": "Pronounced flek-SEE-bleh.",
+          "difficulty": 2,
+          "hints": [
+            "Same pattern...",
+            "Flek-si-ble..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "cognate_ible_able_03",
+          "tutor_prompt": "How about 'terrible'?",
+          "expected_answers": ["terrible"],
+          "answer_notes": "Pronounced teh-RREE-bleh.",
+          "difficulty": 2,
+          "hints": [
+            "Syllable by syllable...",
+            "Te-rri-ble..."
+          ],
+          "revelation": {
+            "pattern_name": "suffix_ible_able_conversion",
+            "first_encounter_script": "Words ending in -ible or -able are almost always identical in Spanish. Just pronounce each syllable with pure vowels and stress the second-to-last: possible, flexible, terrible, incredible...",
+            "review_reference": "What about words ending in -ible or -able?"
+          }
+        },
+        {
+          "step_id": "cognate_ible_able_04",
+          "tutor_prompt": "How would you say 'it is possible'?",
+          "expected_answers": ["es posible"],
+          "answer_notes": "Combining with verb_es.",
+          "difficulty": 2,
+          "hints": [
+            "Es + posible..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "cognate_ible_able_05",
+          "tutor_prompt": "And 'it is not possible'?",
+          "expected_answers": ["no es posible"],
+          "answer_notes": "Combining with negation.",
+          "difficulty": 2,
+          "hints": [
+            "No + es + posible..."
+          ],
+          "revelation": null
+        },
+        {
+          "step_id": "cognate_ible_able_06",
+          "tutor_prompt": "Now a bigger one: 'it is not normally possible'?",
+          "expected_answers": [
+            "no es normalmente posible",
+            "normalmente no es posible"
+          ],
+          "answer_notes": "Combines negation, adverb, and -ible adjective.",
+          "difficulty": 3,
+          "hints": [
+            "Build it piece by piece...",
+            "No es... normalmente... posible...",
+            "No es normalmente posible."
+          ],
+          "revelation": null
+        }
+      ],
+      "common_errors": [
+        {
+          "error_type": "english_schwa_sound",
+          "example": "pos-uh-bel instead of po-SEE-bleh",
+          "explanation": "Using the English schwa 'uh' sound for vowels.",
+          "tutor_correction_approach": "Redirect to pure vowels: 'Every vowel gets its full sound. Po-see-bleh, not pos-uh-bul.'"
+        },
+        {
+          "error_type": "wrong_stress",
+          "example": "POS-i-ble instead of po-SI-ble",
+          "explanation": "Stressing the first syllable like in English.",
+          "tutor_correction_approach": "Correct: 'Stress the second-to-last syllable: po-SI-ble.'"
+        },
+        {
+          "error_type": "double_s",
+          "example": "possible (with 'ss' sound)",
+          "explanation": "Carrying over English double consonants.",
+          "tutor_correction_approach": "Note: 'Spanish doesn't double the S. Just one clean S sound: po-si-ble.'"
+        }
+      ],
+      "bkt_parameters": {
+        "p_init": 0.0,
+        "p_learn": 0.3,
+        "p_guess": 0.15,
+        "p_slip": 0.1,
+        "p_forget": 0.05
+      }
+    }
+  ]
+}

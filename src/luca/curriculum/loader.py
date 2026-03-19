@@ -1,9 +1,15 @@
 """Curriculum data loader."""
 
+from __future__ import annotations
+
 import json
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from luca.utils.logging import get_logger
+
+if TYPE_CHECKING:
+    from luca.curriculum.models import Curriculum
 
 logger = get_logger("curriculum.loader")
 
@@ -66,3 +72,27 @@ class CurriculumLoader:
 
         with open(concept_path) as f:
             return json.load(f)
+
+    def load_curriculum(self, path: str) -> Curriculum:
+        """Load a unified curriculum JSON file.
+
+        Args:
+            path: Path to the curriculum JSON file (e.g., 'data/curriculum.json')
+
+        Returns:
+            Validated Curriculum model
+        """
+        from luca.curriculum.models import Curriculum
+
+        curriculum_path = Path(path)
+        if not curriculum_path.exists():
+            raise FileNotFoundError(f"Curriculum file not found: {path}")
+
+        with open(curriculum_path) as f:
+            data = json.load(f)
+
+        curriculum = Curriculum.model_validate(data)
+        logger.info(
+            f"Loaded curriculum v{curriculum.version} with {len(curriculum.concepts)} concepts"
+        )
+        return curriculum

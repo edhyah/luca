@@ -1,6 +1,9 @@
 """Curriculum engine for managing lesson progression."""
 
+from __future__ import annotations
+
 from luca.curriculum.loader import CurriculumLoader
+from luca.curriculum.models import Concept, Curriculum, ScaffoldStep
 from luca.utils.logging import get_logger
 
 logger = get_logger("curriculum.engine")
@@ -11,18 +14,54 @@ class CurriculumEngine:
 
     def __init__(self, loader: CurriculumLoader | None = None) -> None:
         self.loader = loader or CurriculumLoader()
-        self.concepts: dict[str, dict] = {}
+        self.curriculum: Curriculum | None = None
         self.dag: dict[str, list[str]] = {}  # concept_id -> prerequisite_ids
 
-    async def load_curriculum(self, curriculum_path: str = "curriculum") -> None:
-        """Load curriculum data from the specified path."""
-        self.dag = await self.loader.load_dag(f"{curriculum_path}/dag.json")
-        self.concepts = await self.loader.load_concepts(f"{curriculum_path}/concepts")
-        logger.info(f"Loaded {len(self.concepts)} concepts")
+    async def load_curriculum_legacy(self, curriculum_path: str = "curriculum") -> None:
+        """Load curriculum data from the legacy directory structure.
 
-    def get_concept(self, concept_id: str) -> dict | None:
+        This loads from separate dag.json and concepts/*.json files.
+        """
+        self.dag = await self.loader.load_dag(f"{curriculum_path}/dag.json")
+        concepts = await self.loader.load_concepts(f"{curriculum_path}/concepts")
+        logger.info(f"Loaded {len(concepts)} concepts (legacy format)")
+
+    def load_curriculum(self, path: str = "data/curriculum.json") -> Curriculum:
+        """Load curriculum from a unified JSON file.
+
+        Args:
+            path: Path to the curriculum JSON file
+
+        Returns:
+            The loaded Curriculum model
+        """
+        self.curriculum = self.loader.load_curriculum(path)
+        self.dag = self.curriculum.build_dag()
+        logger.info(f"Loaded curriculum with {len(self.curriculum.concepts)} concepts")
+        return self.curriculum
+
+    def get_concept(self, concept_id: str) -> Concept | None:
         """Get a concept by ID."""
-        return self.concepts.get(concept_id)
+        if self.curriculum is None:
+            return None
+        return self.curriculum.get_concept(concept_id)
+
+    def get_scaffold_step(self, concept_id: str, step_index: int) -> ScaffoldStep | None:
+        """Get a specific scaffold step for a concept.
+
+        Args:
+            concept_id: The concept ID
+            step_index: Zero-based index of the step
+
+        Returns:
+            The ScaffoldStep or None if not found
+        """
+        concept = self.get_concept(concept_id)
+        if concept is None:
+            return None
+        if step_index < 0 or step_index >= len(concept.scaffold_steps):
+            return None
+        return concept.scaffold_steps[step_index]
 
     def get_prerequisites(self, concept_id: str) -> list[str]:
         """Get prerequisite concept IDs for a concept."""

@@ -1,6 +1,13 @@
 """Bayesian Knowledge Tracing implementation."""
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from luca.utils.logging import get_logger
+
+if TYPE_CHECKING:
+    from luca.curriculum.models import BKTParameters
 
 logger = get_logger("student.bkt")
 
@@ -24,6 +31,15 @@ class BKTModel:
         self.mastery: dict[str, float] = {}
         # Parameters per concept (can be learned or set)
         self.params: dict[str, dict[str, float]] = {}
+
+    def set_params(self, concept_id: str, bkt_params: BKTParameters) -> None:
+        """Set BKT parameters for a concept from a BKTParameters model."""
+        self.params[concept_id] = {
+            "p_init": bkt_params.p_init,
+            "p_learn": bkt_params.p_learn,
+            "p_guess": bkt_params.p_guess,
+            "p_slip": bkt_params.p_slip,
+        }
 
     def get_params(self, concept_id: str) -> dict[str, float]:
         """Get BKT parameters for a concept."""
