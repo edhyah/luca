@@ -14,7 +14,7 @@ from pipecat.frames.frames import (
 )
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
 
-from luca.pipeline.frames import TurnContextFrame
+from luca.pipeline.frames import HintDeliveredFrame, TurnContextFrame
 from luca.pipeline.pattern_matcher import MatchSignal
 from luca.utils.logging import get_logger
 
@@ -255,6 +255,7 @@ class FillerEngine(FrameProcessor):
             return
 
         hint = self._hints[self._hints_given]
+        hint_index = self._hints_given
         self._hints_given += 1
         self._state = FillerState.HINTING
 
@@ -262,6 +263,13 @@ class FillerEngine(FrameProcessor):
         hint_frame = TextFrame(text=hint)
         await self.push_frame(hint_frame, FrameDirection.DOWNSTREAM)
         logger.info(f"Delivered hint {self._hints_given}/{len(self._hints)}: {hint[:50]}...")
+
+        # Notify orchestrator that a hint was delivered
+        hint_delivered_frame = HintDeliveredFrame(
+            hint_index=hint_index,
+            total_hints=len(self._hints),
+        )
+        await self.push_frame(hint_delivered_frame, FrameDirection.UPSTREAM)
 
         # Restart timer with shorter post-hint window
         self._state = FillerState.THINKING_PAUSE

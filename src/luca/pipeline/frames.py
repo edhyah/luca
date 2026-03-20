@@ -21,3 +21,15 @@ class TurnContextFrame(DataFrame):
     difficulty: int
     hints: list[str] = field(default_factory=list)
     evaluation_signal: MatchSignal | None = None
+
+
+@dataclass
+class HintDeliveredFrame(DataFrame):
+    """Signals that a hint was delivered during thinking pause.
+
+    Pushed by FillerEngine when a graduated hint is delivered.
+    The Orchestrator uses this to track hints given for context building.
+    """
+
+    hint_index: int  # 0-based index of the hint delivered
+    total_hints: int  # Total number of hints available for this step

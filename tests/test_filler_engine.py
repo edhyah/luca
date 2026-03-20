@@ -278,7 +278,7 @@ class TestHintDelivery:
 
     @pytest.mark.asyncio
     async def test_hint_delivered_via_text_frame(self):
-        """Hints should be delivered as TextFrame."""
+        """Hints should be delivered as TextFrame and HintDeliveredFrame."""
         engine = FillerEngine()
         engine._hints = ["First hint", "Second hint"]
         engine._hints_given = 0
@@ -290,11 +290,15 @@ class TestHintDelivery:
             ):
                 await engine._deliver_hint()
 
-                # Should have pushed a TextFrame
-                mock_push.assert_called_once()
-                call_args = mock_push.call_args
-                frame = call_args[0][0]
-                assert frame.text == "First hint"
+                # Should have pushed a TextFrame downstream and HintDeliveredFrame upstream
+                assert mock_push.call_count == 2
+                # First call is the TextFrame with hint
+                text_frame = mock_push.call_args_list[0][0][0]
+                assert text_frame.text == "First hint"
+                # Second call is the HintDeliveredFrame
+                hint_frame = mock_push.call_args_list[1][0][0]
+                assert hint_frame.hint_index == 0
+                assert hint_frame.total_hints == 2
 
     @pytest.mark.asyncio
     async def test_hints_given_counter_increments(self):
