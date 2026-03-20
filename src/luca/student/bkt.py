@@ -24,6 +24,7 @@ class BKTModel:
         "p_learn": 0.2,  # Probability of learning after opportunity
         "p_guess": 0.25,  # Probability of guessing correctly
         "p_slip": 0.1,  # Probability of slipping (knowing but wrong)
+        "p_forget": 0.05,  # Probability of forgetting per day
     }
 
     def __init__(self) -> None:
@@ -39,6 +40,7 @@ class BKTModel:
             "p_learn": bkt_params.p_learn,
             "p_guess": bkt_params.p_guess,
             "p_slip": bkt_params.p_slip,
+            "p_forget": bkt_params.p_forget,
         }
 
     def get_params(self, concept_id: str) -> dict[str, float]:
@@ -84,3 +86,42 @@ class BKTModel:
     def get_mastered_concepts(self, threshold: float = 0.8) -> list[str]:
         """Get list of concepts above mastery threshold."""
         return [cid for cid, m in self.mastery.items() if m >= threshold]
+
+    def apply_decay(self, concept_id: str, hours_elapsed: float) -> float:
+        """Apply forgetting decay to a concept's mastery.
+
+        Decay formula: new = old * (1 - p_forget) ^ (hours / 24)
+
+        Args:
+            concept_id: The concept to apply decay to.
+            hours_elapsed: Hours since last practice.
+
+        Returns:
+            The new mastery probability after decay.
+        """
+        if concept_id not in self.mastery:
+            return self.get_mastery(concept_id)
+
+        params = self.get_params(concept_id)
+        p_forget: float = params.get("p_forget", 0.0)
+
+        if p_forget <= 0 or hours_elapsed <= 0:
+            return self.mastery[concept_id]
+
+        old_mastery = self.mastery[concept_id]
+        days_elapsed = hours_elapsed / 24.0
+        decay_factor = (1 - p_forget) ** days_elapsed
+        p_init: float = params["p_init"]
+        new_mastery: float = max(p_init, old_mastery * decay_factor)
+
+        self.mastery[concept_id] = new_mastery
+        logger.debug(
+            f"BKT decay for {concept_id}: {old_mastery:.3f} -> {new_mastery:.3f} "
+            f"(hours={hours_elapsed:.1f}, p_forget={p_forget})"
+        )
+
+        return new_mastery
+
+    def set_mastery(self, concept_id: str, mastery: float) -> None:
+        """Set mastery probability directly (used when loading from persistence)."""
+        self.mastery[concept_id] = max(0.0, min(1.0, mastery))

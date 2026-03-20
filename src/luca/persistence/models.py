@@ -37,6 +37,9 @@ class Student(Base):
     teaching_brief: Mapped["TeachingBriefRecord | None"] = relationship(
         back_populates="student", uselist=False, cascade="all, delete-orphan"
     )
+    error_history: Mapped[list["ErrorHistory"]] = relationship(
+        back_populates="student", cascade="all, delete-orphan"
+    )
 
 
 class ConceptMastery(Base):
@@ -113,3 +116,21 @@ class TeachingBriefRecord(Base):
     )
 
     student: Mapped["Student"] = relationship(back_populates="teaching_brief")
+
+
+class ErrorHistory(Base):
+    """Error occurrence record for pattern tracking."""
+
+    __tablename__ = "error_history"
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    student_id: Mapped[str] = mapped_column(ForeignKey("students.id"), index=True)
+    error_type: Mapped[str] = mapped_column(String(255), index=True)
+    concept_id: Mapped[str] = mapped_column(String(255), index=True)
+    student_response: Mapped[str | None] = mapped_column(Text)
+    expected_response: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+
+    student: Mapped["Student"] = relationship(back_populates="error_history")
