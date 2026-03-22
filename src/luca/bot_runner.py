@@ -1,6 +1,7 @@
 """FastAPI server that spawns Pipecat bots for voice sessions."""
 
 import asyncio
+import uuid
 from contextlib import asynccontextmanager
 from typing import Any, AsyncGenerator
 
@@ -121,15 +122,25 @@ async def connect() -> ConnectResponse:
     return ConnectResponse(room_url=room_url, token=token)
 
 
-async def spawn_bot(room_url: str, room_name: str) -> None:
-    """Spawn a bot to join the given room."""
+async def spawn_bot(room_url: str, room_name: str, student_id: str | None = None) -> None:
+    """Spawn a bot to join the given room.
+
+    Args:
+        room_url: Daily room URL.
+        room_name: Daily room name.
+        student_id: Optional student identifier. Generated if not provided.
+    """
     # Get a separate token for the bot
     bot_token = await get_daily_token(room_name)
 
-    logger.info(f"Spawning bot for room: {room_name}")
+    # Generate student_id if not provided
+    if student_id is None:
+        student_id = f"student-{uuid.uuid4().hex[:8]}"
+
+    logger.info(f"Spawning bot for room: {room_name}, student: {student_id}")
 
     try:
-        await create_bot(room_url, bot_token)
+        await create_bot(room_url, bot_token, student_id)
     except Exception as e:
         logger.error(f"Bot error: {e}")
     finally:

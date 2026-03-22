@@ -8,6 +8,7 @@ from pipecat.frames.frames import (
     LLMFullResponseEndFrame,
     LLMFullResponseStartFrame,
     LLMTextFrame,
+    StartFrame,
     TextFrame,
 )
 from pipecat.processors.frame_processor import FrameDirection, FrameProcessor
@@ -44,6 +45,7 @@ class StreamingTTSChunker(FrameProcessor):
         self._buffer = ""
         self._first_token_time: float | None = None
         self._first_emit_time: float | None = None
+        self._pipeline_started = False
 
     def extract_sentences(self, text: str) -> tuple[list[str], str]:
         """Extract complete sentences/clauses from text.
@@ -103,11 +105,24 @@ class StreamingTTSChunker(FrameProcessor):
         """Process frames and chunk text at sentence boundaries.
 
         Handles:
+        - StartFrame: Initialize pipeline started state
         - LLMFullResponseStartFrame: Reset buffer and timing
         - LLMTextFrame: Buffer text, extract and emit complete sentences
         - LLMFullResponseEndFrame: Flush remaining buffer
         - Other frames: Pass through unchanged
         """
+        # Handle StartFrame to set pipecat's internal _started flag
+        if isinstance(frame, StartFrame):
+            await super().process_frame(frame, direction)
+            self._pipeline_started = True
+            # Push StartFrame downstream so other processors receive it
+            await self.push_frame(frame, direction)
+            return
+
+        # Silently drop frames before pipeline is started (avoids pipecat warnings)
+        if not self._pipeline_started:
+            return
+
         if isinstance(frame, LLMFullResponseStartFrame):
             # Reset state for new response
             self._buffer = ""

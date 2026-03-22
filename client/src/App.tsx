@@ -13,13 +13,24 @@ function App() {
     const newClient = new RTVIClient({
       transport,
       params: {
-        baseUrl: '/connect',
+        baseUrl: '/',
         endpoints: {
-          connect: '/connect',
+          connect: 'connect',
         },
       },
       enableMic: true,
       enableCam: false,
+      callbacks: {
+        onBotStartedSpeaking: () => {
+          console.log('[RTVI] Bot started speaking')
+        },
+        onBotStoppedSpeaking: () => {
+          console.log('[RTVI] Bot stopped speaking')
+        },
+        onTrackStarted: (track, participant) => {
+          console.log('[RTVI] Track started:', track.kind, participant?.id)
+        },
+      },
     })
 
     setClient(newClient)

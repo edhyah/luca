@@ -17,6 +17,7 @@ from pipecat.frames.frames import (
     LLMFullResponseEndFrame,
     LLMFullResponseStartFrame,
     LLMTextFrame,
+    StartFrame,
     TextFrame,
     TranscriptionFrame,
     TTSStartedFrame,
@@ -138,6 +139,9 @@ class SessionOrchestrator(FrameProcessor):
         # Pending teaching brief tasks
         self._pending_brief_tasks: list[asyncio.Task[None]] = []
 
+        # Pipeline started flag (mirrors pipecat's internal __started)
+        self._pipeline_started = False
+
         # Load curriculum into engine
         if curriculum_engine is None:
             self._curriculum_engine.curriculum = curriculum
@@ -250,6 +254,26 @@ class SessionOrchestrator(FrameProcessor):
         """Transition to a new state."""
         logger.debug(f"State transition: {self.state.value} -> {new_state.value}")
         self.state = new_state
+
+    async def _start_first_turn(self) -> None:
+        """Start the first turn of the session with an initial greeting."""
+        step = self._session_state.get_current_step()
+        if step is None:
+            logger.warning("No step available for first turn")
+            return
+
+        logger.info("Starting first turn with initial greeting")
+
+        # Build context for initial greeting (no student response yet)
+        context = self._context_builder.build_turn_context(
+            self._session_state,
+            match_result=None,
+            student_transcript="",
+        )
+
+        if context:
+            # Generate and stream the initial greeting
+            await self._generate_response(context)
 
     async def _start_turn(self) -> None:
         """Start a new turn, pre-computing branches if needed."""
@@ -578,6 +602,20 @@ class SessionOrchestrator(FrameProcessor):
             frame: The frame to process.
             direction: Frame direction.
         """
+        # Handle StartFrame to initialize pipecat's started state
+        if isinstance(frame, StartFrame):
+            await super().process_frame(frame, direction)
+            self._pipeline_started = True
+            # Push StartFrame downstream so other processors receive it
+            await self.push_frame(frame, direction)
+            # Start the first turn (sends initial greeting)
+            await self._start_first_turn()
+            return
+
+        # Silently drop frames before pipeline is started (avoids pipecat warnings)
+        if not self._pipeline_started:
+            return
+
         # Handle HintDeliveredFrame from filler engine (upstream)
         if isinstance(frame, HintDeliveredFrame):
             await self._handle_hint_delivered(frame)

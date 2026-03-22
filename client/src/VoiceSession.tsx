@@ -1,12 +1,14 @@
 import { useRTVIClient, useRTVIClientEvent } from '@pipecat-ai/client-react'
 import { RTVIEvent, TransportState } from '@pipecat-ai/client-js'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 
 function VoiceSession() {
   const client = useRTVIClient()
   const [connectionState, setConnectionState] = useState<TransportState>('disconnected')
   const [isMicMuted, setIsMicMuted] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isBotSpeaking, setIsBotSpeaking] = useState(false)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
   useRTVIClientEvent(
     RTVIEvent.TransportStateChanged,
@@ -19,6 +21,38 @@ function VoiceSession() {
     RTVIEvent.Error,
     useCallback((err: Error) => {
       setError(err.message)
+    }, [])
+  )
+
+  useRTVIClientEvent(
+    RTVIEvent.BotStartedSpeaking,
+    useCallback(() => {
+      console.log('[VoiceSession] Bot started speaking')
+      setIsBotSpeaking(true)
+    }, [])
+  )
+
+  useRTVIClientEvent(
+    RTVIEvent.BotStoppedSpeaking,
+    useCallback(() => {
+      console.log('[VoiceSession] Bot stopped speaking')
+      setIsBotSpeaking(false)
+    }, [])
+  )
+
+  useRTVIClientEvent(
+    RTVIEvent.TrackStarted,
+    useCallback((track: MediaStreamTrack, participant: any) => {
+      console.log('[VoiceSession] Track started:', track.kind, participant?.id)
+      if (track.kind === 'audio' && participant?.local === false) {
+        // This is the bot's audio track - attach it to an audio element
+        console.log('[VoiceSession] Attaching bot audio track')
+        if (audioRef.current) {
+          const stream = new MediaStream([track])
+          audioRef.current.srcObject = stream
+          audioRef.current.play().catch(e => console.error('Audio play error:', e))
+        }
+      }
     }, [])
   )
 
@@ -111,8 +145,12 @@ function VoiceSession() {
       {isConnected && (
         <div className="session-info">
           <p>Speak to start your lesson with Luca.</p>
+          {isBotSpeaking && <p className="bot-speaking">🔊 Luca is speaking...</p>}
         </div>
       )}
+
+      {/* Hidden audio element for bot audio playback */}
+      <audio ref={audioRef} autoPlay playsInline />
     </div>
   )
 }

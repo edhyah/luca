@@ -202,6 +202,7 @@ class TestProcessFrame:
         """Create a chunker with mocked push_frame."""
         chunker = StreamingTTSChunker()
         chunker.push_frame = AsyncMock()
+        chunker._pipeline_started = True  # Simulate pipeline started state
         return chunker
 
     @pytest.mark.asyncio
@@ -341,6 +342,7 @@ class TestTimingInstrumentation:
         """Create a chunker with mocked push_frame."""
         chunker = StreamingTTSChunker()
         chunker.push_frame = AsyncMock()
+        chunker._pipeline_started = True  # Simulate pipeline started state
         return chunker
 
     @pytest.mark.asyncio
@@ -416,6 +418,7 @@ class TestIntegration:
         """Create a chunker with mocked push_frame."""
         chunker = StreamingTTSChunker()
         chunker.push_frame = AsyncMock()
+        chunker._pipeline_started = True  # Simulate pipeline started state
         return chunker
 
     @pytest.mark.asyncio
